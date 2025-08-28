@@ -26,6 +26,7 @@ code {
   --color-text-light: #72787d;
   --width-input: 20rem;
   --width-content: 30rem;
+  --font-primary: var(--font-primary), system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 }
 
 * {
