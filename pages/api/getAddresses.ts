@@ -30,7 +30,11 @@ export default async function handle(
    *  is all digits and non negative
    */
   const isStrictlyNumeric = (value: string) => {
-    return true;
+    if (!/^\d+$/.test(value)) {
+      return false;
+    }
+    const num = Number(value);
+    return num >= 0;
   };
 
   /** TODO: Refactor the code below so there is no duplication of logic for postCode/streetNumber digit checks. */
