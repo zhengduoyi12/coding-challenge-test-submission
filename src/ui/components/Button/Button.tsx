@@ -16,7 +16,7 @@ const Button: FunctionComponent<ButtonProps> = ({
   onClick,
   type = "button",
   variant = "primary",
-  loading = true,
+  loading = false,
 }) => {
   const variantClass =
     variant === "secondary" ? $.secondary : $.primary;
