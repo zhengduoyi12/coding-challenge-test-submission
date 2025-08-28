@@ -5,6 +5,7 @@ import AddressBook from "@/components/AddressBook/AddressBook";
 import Button from "@/components/Button/Button";
 import InputText from "@/components/InputText/InputText";
 import Radio from "@/components/Radio/Radio";
+import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import Section from "@/components/Section/Section";
 import useAddressBook from "@/hooks/useAddressBook";
 import useFormFields from "@/hooks/useFormFields";
@@ -195,7 +196,7 @@ function App() {
         )}
 
         {/* TODO: Create an <ErrorMessage /> component for displaying an error message */}
-        {error && <div className={styles.error}>❌{error}</div>}
+        {error && <ErrorMessage message={error}/>}
 
         {/* TODO: Add a button to clear all form fields. 
         Button must look different from the default primary button, see design. 
