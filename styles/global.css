@@ -1,15 +1,3 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
 /* TODO: Add the 'Roboto' font from Google fonts and add it as a global CSS var called `--font-primary` */
 /* TODO: Make application responsive. It is already for the most part, but it is not optimal for smaller screens.
 * - Making the application responsive using the Mobile First principle.
@@ -26,7 +14,8 @@ code {
   --color-text-light: #72787d;
   --width-input: 20rem;
   --width-content: 30rem;
-  --font-primary: var(--font-primary), system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --font-system: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+  'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 * {
@@ -34,10 +23,19 @@ code {
 }
 
 body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
   accent-color: var(--color-brand);
   font-size: 18px;
-  font-family: var(--font-primary);
+  
+  font-family: var(--font-primary, var(--font-system));
   background: var(--color-accent);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 main {
