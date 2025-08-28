@@ -162,6 +162,7 @@ function App() {
                 id={address.id}
                 key={address.id}
                 onChange={handleChange}
+                checked={values.selectedAddress === address.id}
               >
                 <Address {...address} />
               </Radio>
