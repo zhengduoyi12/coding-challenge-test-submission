@@ -81,7 +81,7 @@ function App() {
       }
 
       const transformed = data.details.map((a: any) =>
-        transformAddress(a, values.houseNumber)
+        transformAddress(a, a.houseNumber)
       );
       setAddresses(transformed);
     } catch (err: any) {
