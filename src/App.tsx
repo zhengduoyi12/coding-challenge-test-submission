@@ -133,15 +133,16 @@ function App() {
           </small>
         </h1>
         {/* TODO: Create generic <Form /> component to display form rows, legend and a submit button  */}
-        <form onSubmit={handleAddressSubmit}>
+        <form onSubmit={handleAddressSubmit} aria-labelledby="find-address-legend">
           <fieldset>
-            <legend>🏠 Find an address</legend>
+            <legend id="find-address-legend">🏠 Find an address</legend>
             <div className={styles.formRow}>
               <InputText
                 name="postCode"
                 onChange={handleChange}
                 placeholder="Post Code"
                 value={values.postCode}
+                aria-label="Postcode"
               />
             </div>
             <div className={styles.formRow}>
@@ -150,6 +151,7 @@ function App() {
                 onChange={handleChange}
                 value={values.houseNumber}
                 placeholder="House number"
+                aria-label="House number"
               />
             </div>
             <Button type="submit" loading={loading}>Find</Button>
@@ -180,6 +182,7 @@ function App() {
                   placeholder="First name"
                   onChange={handleChange}
                   value={values.firstName}
+                  aria-label="First name"
                 />
               </div>
               <div className={styles.formRow}>
@@ -188,6 +191,7 @@ function App() {
                   placeholder="Last name"
                   onChange={handleChange}
                   value={values.lastName}
+                  aria-label="Last name"
                 />
               </div>
               <Button type="submit">Add to addressbook</Button>
