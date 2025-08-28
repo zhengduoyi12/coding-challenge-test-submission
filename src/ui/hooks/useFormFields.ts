@@ -9,13 +9,13 @@ export default function useFormFields<T extends Record<string, any>>(initialValu
     const [values, setValues] = React.useState<T>(initialValues);
   
     const handleChange = React.useCallback((e: InputEvt) => {
-      const target = e.target as HTMLInputElement;
-      const { name, type, value } = target;
-      const next = type === "checkbox" ? target.checked : value;
-  
-      setValues((prev) => ({ ...prev, [name]: next }));
-    }, []);
-  
+        const target = e.target as HTMLInputElement;
+        const { name, value } = target;
+    
+       
+        setValues((prev) => ({ ...prev, [name]: value }));
+      }, []);
+      
     const setField = React.useCallback(
       <K extends keyof T>(name: K, val: T[K]) =>
         setValues((prev) => ({ ...prev, [name]: val })),
