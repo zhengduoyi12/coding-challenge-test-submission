@@ -7,7 +7,7 @@ import InputText from "@/components/InputText/InputText";
 import Radio from "@/components/Radio/Radio";
 import Section from "@/components/Section/Section";
 import useAddressBook from "@/hooks/useAddressBook";
-import useFormFields from "@/hooks/useFormFields"; 
+import useFormFields from "@/hooks/useFormFields";
 
 import styles from "./App.module.css";
 import { Address as AddressType } from "./types";
@@ -41,7 +41,7 @@ function App() {
   /**
    * Text fields onChange handlers
    */
- 
+
   /** TODO: Fetch addresses based on houseNumber and postCode using the local BE api
    * - Example URL of API: ${process.env.NEXT_PUBLIC_URL}/api/getAddresses?postcode=1345&streetnumber=350
    * - Ensure you provide a BASE URL for api endpoint for grading purposes!
@@ -51,8 +51,43 @@ function App() {
    * - Ensure to clear previous search results on each click
    * - Bonus: Add a loading state in the UI while fetching addresses
    */
+  const  transformAddress = (addr: AddressType, houseNumber: string) => {
+    return { ...addr, houseNumber };
+  }
+  
   const handleAddressSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(undefined);
+    setAddresses([]);
+
+    if (!values.postCode || !values.houseNumber) {
+      setError("Please enter both postcode and house number");
+      return;
+    }
+
+    try {
+      //setLoading(true);
+      const base = process.env.NEXT_PUBLIC_URL || "";
+      const url = `${base}/api/getAddresses?postcode=${encodeURIComponent(
+        values.postCode
+      )}&streetnumber=${encodeURIComponent(values.houseNumber)}`;
+
+      const resp = await fetch(url);
+      const data = await resp.json();
+
+      if (!resp.ok || data.status !== "ok") {
+        throw new Error(data.errormessage || "Failed to fetch addresses");
+      }
+
+      const transformed = data.details.map((a: any) =>
+        transformAddress(a, values.houseNumber)
+      );
+      setAddresses(transformed);
+    } catch (err: any) {
+      setError(err.message || "Unknown error");
+    } finally {
+      //setLoading(false);
+    }
   };
 
   /** TODO: Add basic validation to ensure first name and last name fields aren't empty
@@ -77,7 +112,7 @@ function App() {
       return;
     }
 
-    addAddress({ ...foundAddress, firstName:values.firstName, lastName:values.lastName });
+    addAddress({ ...foundAddress, firstName: values.firstName, lastName: values.lastName });
   };
 
   return (
