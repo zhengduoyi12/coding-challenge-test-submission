@@ -31,6 +31,7 @@ function App() {
   /**
    * Results states
    */
+  const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<undefined | string>(undefined);
   const [addresses, setAddresses] = React.useState<AddressType[]>([]);
   /**
@@ -66,7 +67,7 @@ function App() {
     }
 
     try {
-      //setLoading(true);
+      setLoading(true);
       const base = process.env.NEXT_PUBLIC_URL || "";
       const url = `${base}/api/getAddresses?postcode=${encodeURIComponent(
         values.postCode
@@ -86,7 +87,7 @@ function App() {
     } catch (err: any) {
       setError(err.message || "Unknown error");
     } finally {
-      //setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -95,6 +96,11 @@ function App() {
    */
   const handlePersonSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!values.firstName || !values.lastName) {
+      setError("First name and last name fields mandatory!");
+      return;
+    }
 
     if (!values.selectedAddress || !addresses.length) {
       setError(
@@ -145,7 +151,7 @@ function App() {
                 placeholder="House number"
               />
             </div>
-            <Button type="submit">Find</Button>
+            <Button type="submit" loading={loading}>Find</Button>
           </fieldset>
         </form>
         {addresses.length > 0 &&
