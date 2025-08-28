@@ -26,7 +26,7 @@ const AddressBook = () => {
           {addresses.length === 0 && <p>No addresses found, try add one 😉</p>}
           {addresses.map((address, index) => {
             return (
-              <Card key={address.id}>
+              <Card key={address.id+address.firstName+address.lastName}>
                 <div data-testid={`address-${index}`} className={$.item}>
                   <div>
                     <h3>
