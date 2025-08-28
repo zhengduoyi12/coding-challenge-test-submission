@@ -16,35 +16,36 @@ export default function useAddressBook() {
   const addresses = useAppSelector(selectAddress);
   const [loading, setLoading] = React.useState(true);
 
-  const updateDatabase = React.useCallback(() => {
+  const [hydrated, setHydrated] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!hydrated) return;
     databaseService.setItem("addresses", addresses);
-  }, [addresses]);
+  }, [addresses, hydrated]);
 
   return {
     /** Add address to the redux store */
     addAddress: (address: Address) => {
       dispatch(addAddress(address));
-      updateDatabase();
     },
     /** Remove address by ID from the redux store */
     removeAddress: (id: string) => {
       dispatch(removeAddress(id));
-      updateDatabase();
     },
     /** Loads saved addresses from the indexedDB */
     loadSavedAddresses: async () => {
-      const saved: RawAddressModel[] | null = await databaseService.getItem(
-        "addresses"
-      );
-      // No saved item found, exit this function
+      const saved: RawAddressModel[] | null =
+        await databaseService.getItem("addresses");
+
       if (!saved || !Array.isArray(saved)) {
         setLoading(false);
+        setHydrated(true);
         return;
       }
-      dispatch(
-        updateAddresses(saved.map((address) => transformAddress(address)))
-      );
+
+      dispatch(updateAddresses(saved.map((a) => transformAddress(a))));
       setLoading(false);
+      setHydrated(true);
     },
     loading,
   };
