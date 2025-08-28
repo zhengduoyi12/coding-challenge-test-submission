@@ -53,7 +53,7 @@ function App() {
    * - Bonus: Add a loading state in the UI while fetching addresses
    */
   const  transformAddress = (addr: AddressType, houseNumber: string) => {
-    return { ...addr, houseNumber };
+    return { ...addr, houseNumber};
   }
   
   const handleAddressSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {

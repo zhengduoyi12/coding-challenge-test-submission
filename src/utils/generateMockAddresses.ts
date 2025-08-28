@@ -37,7 +37,7 @@ const generateMockAddresses = (postcode: string, streetNumber: string) => {
         street: `${streetNumber} ${streetMapping}`,
         lat: Math.random(),
         long: Math.random(),
-        id: `${Math.random()}`,
+        id: `${postcode}1`
       },
       {
         city: postcodeMapping,
@@ -46,7 +46,7 @@ const generateMockAddresses = (postcode: string, streetNumber: string) => {
         street: `${streetNumber} ${streetMapping}`,
         lat: Math.random(),
         long: Math.random(),
-        id: `${Math.random()}`,
+        id: `${postcode}2`,
       },
       {
         city: postcodeMapping,
@@ -55,7 +55,7 @@ const generateMockAddresses = (postcode: string, streetNumber: string) => {
         street: `${streetNumber} ${streetMapping}`,
         lat: Math.random(),
         long: Math.random(),
-        id: `${Math.random()}`,
+        id: `${postcode}3`,
       }
     ];
   }
